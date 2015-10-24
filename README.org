@@ -570,9 +570,9 @@ http://incanter.org/
 
 #+RESULTS:
 ** PNG
-file:img/incanter-xy-line.png
+[[https://github.com/jclosure/my-app/blob/master/img/incanter-xy-line.png][https://github.com/jclosure/my-app/blob/master/img/incanter-xy-line.png]]
 ** PDF
-file:img/incanter-xy-line.pdf
+[[https://github.com/jclosure/my-app/blob/master/img/incanter-xy-line.pdf][https://github.com/jclosure/my-app/blob/master/img/incanter-xy-line.pdf]]
 
 
 * resources
