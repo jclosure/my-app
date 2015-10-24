@@ -546,7 +546,7 @@ out the text shown above.  The run function actually opens the
 incanter java image viewer and shows us a picture of our graph.
 
 #+RESULTS:
-file:img/run.png
+[[https://github.com/jclosure/my-app/blob/master/img/run.png][https://github.com/jclosure/my-app/blob/master/img/run.png]]
 
 I have purposefully not invested in styling these graphs in order to
 keep the code examples simple and focussed, however incanter make
