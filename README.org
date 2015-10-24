@@ -118,10 +118,6 @@ function to pop up a histogram of sample data
   </dependencies>
 #+end_src
 
-for the eager, here is a link to my full pom:
-
-
-
 *** java main class
 
 Modify your java main to call your clojure main like in the following:
@@ -587,7 +583,11 @@ drew on the links cited below along with a night of hacking to arrive
 a nice clean interop skeleton.  Feel free to use my code available
 here:
 
+https://github.com/jclosure/my-app
 
+For the eager, here is a link to my full pom:
+
+https://github.com/jclosure/my-app/blob/master/pom.xml
 
 ** org-babel clojure
 
