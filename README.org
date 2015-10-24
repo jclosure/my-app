@@ -1,23 +1,24 @@
 #+BLOG: uberpwn
 #+POSTID: 1004
-#+TITLE: How To Cleanly Integrate Java and Clojure In The Same Assembly
+#+TITLE: How To Cleanly Integrate Java and Clojure In The Same Package
 #+DATE: [2015-10-23 Fri 20:52]
 
 
-* my-app
+
+file:img/emacs-my-app.png
+
 
 A Hybrid Java/Clojure library designed to demonstrate how to setup Java interop
 using Maven.
 
-** Usage
+* Usage
 
 This is a complete Maven-first Clojure/Java interop application.  It
 details how to create a Maven application, enrich it with clojure
 code, call into clojure from Java, and  hook up the entry points for
 both Java and Clojure within the same project.
 
-Further, it contains my starter examples of using the fantastic Incanter
-statistical and graphics computing library in clojure.  I include both
+Further, it contains my starter examples of using the fantastic [[http://incanter.org/][Incanter Statistical and Graphics Computing Library]] in clojure.  I include both
 a pom.xml and a project.clj showing how to pull in the dependencies.
 
 The outcome is a consistent maven-archetyped project, wherein maven
@@ -30,7 +31,7 @@ cider and swank.  NRepl by itself is present for general purpose use as well.
 
 ** maven first
 
-*** create mave project
+*** create maven project
 
 follow these steps
 
@@ -77,8 +78,7 @@ Give it some goodness...
 
 #+end_src
 
-Notice that we've added in the incanter library and made a run
-function to pop up a histogram of sample data
+Notice that we've added in the [[http://incanter.org/][Incanter Library]] and made a run function to pop up a histogram of sample data
 
 *** add dependencies to your pom.xml
 
@@ -641,3 +641,5 @@ Happy hacking!..
 # img/incanter-xy-line.pdf http://uberpwn.files.wordpress.com/2015/10/wpid-incanter-xy-line.pdf
 
 # img/run.png http://uberpwn.files.wordpress.com/2015/10/wpid-run.png
+
+# img/emacs-my-app.png http://uberpwn.files.wordpress.com/2015/10/wpid-emacs-my-app.png
