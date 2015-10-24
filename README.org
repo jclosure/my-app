@@ -3,13 +3,12 @@
 #+TITLE: How To Cleanly Integrate Java and Clojure In The Same Package
 #+DATE: [2015-10-23 Fri 20:52]
 
-
-
-file:img/emacs-my-app.png
-
-
 A Hybrid Java/Clojure library designed to demonstrate how to setup Java interop
 using Maven.
+
+#+ATTR_HTML: title="Screenshot"
+[[https://github.com/jclosure/my-app/blob/master/img/emacs-my-app.png][https://github.com/jclosure/my-app/blob/master/img/emacs-my-app.png]]
+
 
 * Usage
 
@@ -321,7 +320,7 @@ this section for cases, where the use case is for a non-stand-alone assembly.
 #+end_src
 *** using maven
 
-**** bulding
+**** building
 
 #+begin_src bash
 
