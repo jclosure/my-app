@@ -1,0 +1,643 @@
+#+BLOG: uberpwn
+#+POSTID: 1004
+#+TITLE: How To Cleanly Integrate Java and Clojure In The Same Assembly
+#+DATE: [2015-10-23 Fri 20:52]
+
+
+* my-app
+
+A Hybrid Java/Clojure library designed to demonstrate how to setup Java interop
+using Maven.
+
+** Usage
+
+This is a complete Maven-first Clojure/Java interop application.  It
+details how to create a Maven application, enrich it with clojure
+code, call into clojure from Java, and  hook up the entry points for
+both Java and Clojure within the same project.
+
+Further, it contains my starter examples of using the fantastic Incanter
+statistical and graphics computing library in clojure.  I include both
+a pom.xml and a project.clj showing how to pull in the dependencies.
+
+The outcome is a consistent maven-archetyped project, wherein maven
+and leiningen play nicely together.  This allows the best of both ways
+to be applied together.  For the emacs user, I include support for
+cider and swank.  NRepl by itself is present for general purpose use as well.
+
+
+* starting a project
+
+** maven first
+
+*** create mave project
+
+follow these steps
+
+#+begin_src bash
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+cd my-app
+
+mvn package
+
+java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
+#+end_src
+
+#+begin_example
+# => Hello World
+#+end_example
+
+*** add clojure code
+
+Create a clojure core file
+
+#+begin_src bash
+  mkdir -p src/main/clojure/com/mycompany/app
+
+  touch src/main/clojure/com/mycompany/app/core.clj
+#+end_src
+
+Give it some goodness...
+
+#+begin_src clojure
+
+  (ns com.mycompany.app.core
+  (:gen-class)
+  (:use (incanter core stats charts)))
+
+(defn -main [& args]
+  (println "Hello Clojure!")
+  (println "Java main called clojure function with args: "
+           (apply str (interpose " " args))))
+
+
+(defn run []
+  (view (histogram (sample-normal 1000))))
+
+#+end_src
+
+Notice that we've added in the incanter library and made a run
+function to pop up a histogram of sample data
+
+*** add dependencies to your pom.xml
+
+#+begin_src xml
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure-contrib</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>incanter</groupId>
+      <artifactId>incanter</artifactId>
+      <version>1.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>tools.nrepl</artifactId>
+      <version>0.2.10</version>
+    </dependency>
+   <!-- pick your poison swank or cider. just make sure the version of nRepl matches. -->
+    <dependency>
+      <groupId>cider</groupId>
+      <artifactId>cider-nrepl</artifactId>
+      <version>0.10.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>swank-clojure</groupId>
+      <artifactId>swank-clojure</artifactId>
+      <version>1.4.3</version>
+    </dependency>
+  </dependencies>
+#+end_src
+
+for the eager, here is a link to my full pom:
+
+
+
+*** java main class
+
+Modify your java main to call your clojure main like in the following:
+
+#+begin_src java
+
+  package com.mycompany.app;
+
+  // for clojure's api
+  import clojure.lang.IFn;
+  import clojure.java.api.Clojure;
+
+  // for my api
+  import clojure.lang.RT;
+
+  public class App
+  {
+    public static void main( String[] args )
+    {
+
+      System.out.println("Hello Java!" );
+
+      try {
+
+        // running my clojure code
+        RT.loadResourceScript("com/mycompany/app/core.clj");
+        IFn main = RT.var("com.mycompany.app.core", "main");
+        main.invoke(args);
+
+        // running the clojure api
+        IFn plus = Clojure.var("clojure.core", "+");
+        System.out.println(plus.invoke(1, 2).toString());
+
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+
+    }
+  }
+
+#+end_src
+
+
+*** maven plugins for building
+
+You should add in these plugins to your pom.xml
+
+**** add the maven-assembly-plugin
+
+ Create an Ubarjar
+
+ Bind the maven-assembly-plugin to the package phase
+ this will create a jar file without the dependencies
+ suitable for deployment to a container with deps present.
+
+#+begin_src xml
+
+  <plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <configuration>
+      <descriptorRefs>
+        <descriptorRef>jar-with-dependencies</descriptorRef>
+      </descriptorRefs>
+      <archive>
+        <manifest>
+
+          <!-- use clojure main -->
+          <!-- <mainClass>com.mycompany.app.core</mainClass> -->
+
+          <!-- use java main -->
+          <mainClass>com.mycompany.app.App</mainClass>
+
+        </manifest>
+      </archive>
+    </configuration>
+    <executions>
+      <execution>
+        <id>make-assembly</id>
+        <phase>package</phase>
+        <goals>
+          <goal>single</goal>
+        </goals>
+      </execution>
+    </executions>
+  </plugin>
+
+
+#+end_src
+
+**** add the clojure-maven-plugin
+
+Add this plugin to give your project the mvn: clojure:... commands
+
+A full list of these is posted later in this article.
+
+#+begin_src xml
+
+  <plugin>
+    <groupId>com.theoryinpractise</groupId>
+    <artifactId>clojure-maven-plugin</artifactId>
+    <version>1.7.1</version>
+    <configuration>
+      <mainClass>com.mycompany.app.core</mainClass>
+    </configuration>
+    <executions>
+      <execution>
+        <id>compile-clojure</id>
+        <phase>compile</phase>
+        <goals>
+          <goal>compile</goal>
+        </goals>
+      </execution>
+      <execution>
+        <id>test-clojure</id>
+        <phase>test</phase>
+        <goals>
+          <goal>test</goal>
+        </goals>
+      </execution>
+    </executions>
+  </plugin>
+
+#+end_src
+
+**** add the maven-compiler-plugin
+
+Add Java version targeting
+
+This is always good to have if you are working against multiple
+versions of Java.
+
+#+begin_src xml
+
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.3</version>
+    <configuration>
+      <source>1.8</source>
+      <target>1.8</target>
+    </configuration>
+  </plugin>
+
+#+end_src
+
+**** add the maven-exec-plugin
+
+Add this plugin to give your project the mvn exec:... commands
+
+The maven-exec-plugin is nice for running your project from the
+commandline, build scripts, or from inside an IDE.
+
+#+begin_src xml
+
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>exec-maven-plugin</artifactId>
+    <version>1.4.0</version>
+    <executions>
+      <execution>
+        <goals>
+          <goal>exec</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <mainClass>com.mycompany.app.App</mainClass>
+    </configuration>
+  </plugin>
+
+#+end_src
+
+**** add the maven-jar-plugin
+
+With this plugin you can manipulate the manifest of your default
+package.  In this case, I'm not adding a main, because I'm using the
+uberjar above with all the dependencies for that.  However, I included
+this section for cases, where the use case is for a non-stand-alone assembly.
+
+#+begin_src xml
+
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>2.6</version>
+    <configuration>
+      <archive>
+        <manifest>
+
+          <!-- use clojure main -->
+          <!-- <mainClass>com.mycompany.app.core</mainClass> -->
+
+          <!-- use java main -->
+          <!-- <mainClass>com.mycompany.app.App</mainClass> -->
+
+        </manifest>
+      </archive>
+    </configuration>
+  </plugin>
+
+#+end_src
+*** using maven
+
+**** bulding
+
+#+begin_src bash
+
+mvn package
+
+#+end_src
+
+***** run from cli with
+
+****** run from java entry point:
+
+#+begin_src bash
+
+java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.app.App
+
+#+end_src
+
+****** run from clojure entry point:
+
+#+begin_src bash
+
+java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.app.core
+
+#+end_src
+
+****** run with entry point specified in uberjar MANIFEST.MF:
+
+#+begin_src bash
+
+java -jar target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+#+end_src
+
+***** run from maven-exec-plugin
+
+****** with plugin specified entry point:
+#+begin_src bash
+
+mvn exec:java
+
+#+end_src
+****** specify your own entry point:
+
+******* java main
+#+begin_src bash
+
+mvn exec:java -Dexec.mainClass="com.mycompany.app.App"
+
+#+end_src
+******* clojure main
+#+begin_src bash
+
+mvn exec:java -Dexec.mainClass="com.mycompany.app.core"
+
+#+end_src
+****** feed args with this directive
+#+begin_example
+
+-Dexec.args="foo"
+
+#+end_example
+
+***** run with maven-clojure-plugin
+
+****** clojure main
+#+begin_src bash
+
+mvn clojure:run
+
+#+end_src
+****** clojure test
+
+******* add a test
+
+In order to be consistent with the test location convention in maven,
+create a path and clojure test file like this:
+
+#+begin_src bash
+
+mkdir src/test/clojure/com/mycompany/app
+
+touch src/test/clojure/com/mycompany/app/core_test.clj
+
+#+end_src
+
+Add the following content:
+
+#+begin_src clojure
+
+  (ns com.mycompany.app.core-test
+    (:require [clojure.test :refer :all]
+              [com.mycompany.app.core :refer :all]))
+
+  (deftest a-test
+    (testing "Rigourous Test :-)"
+      (is (= 0 0))))
+
+#+end_src
+
+****** testing
+
+#+begin_src bash
+
+mvn clojure:test
+
+#+end_src
+
+or
+
+#+begin_src bash
+
+mvn clojure:test-with-junit
+
+#+end_src
+
+****** available clojure commands
+
+Here is the full set of options available from the clojure-maven-plugin:
+
+#+begin_example
+
+mvn ...
+
+clojure:add-source
+clojure:add-test-source
+clojure:compile
+clojure:test
+clojure:test-with-junit
+clojure:run
+clojure:repl
+clojure:nrepl
+clojure:swank
+clojure:nailgun
+clojure:gendoc
+clojure:autodoc
+clojure:marginalia
+
+#+end_example
+
+see documentation:
+
+https://github.com/talios/clojure-maven-plugin
+
+
+*** add leiningen support
+
+**** create project.clj
+
+next to your pom.xml, create the clojure project file
+
+#+begin_src bash
+
+touch project.clj
+
+#+end_src
+
+add this content
+
+#+BEGIN_SRC clojure
+
+ (defproject my-sandbox "1.0-SNAPSHOT"
+  :description "My Encanter Project"
+  :url "http://joelholder.com"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.7.0"]
+                 [incanter "1.9.0"]]
+  :main com.mycompany.app.core
+  :source-paths ["src/main/clojure"]
+  :java-source-paths ["src/main/java"]
+  :test-paths ["src/test/clojure"]
+  :resource-paths ["resources"]
+  :aot :all)
+
+#+END_SRC
+
+note that we've set the source code and test paths for both java and
+clojure to match the maven-way of doing this
+
+This gives us a consistent way of hooking the code from both =lein=
+and =mvn=.  Additionally, I've added the incanter library here.  The
+dependency should be expressed in the project file, because when we
+run nRepl from this directory, we want it to be available in our
+namespace, i.e. ~com.mycompany.app.core~
+
+**** run with leiningen
+
+#+begin_src bash
+
+lein run
+
+#+end_src
+
+**** test with leiningen
+
+#+begin_src bash
+
+lein test
+
+#+end_src
+
+* running with org-babel
+
+Make sure you jack-in to cider first:
+
+M-x cider-jack-in (Have it mapped to F9 in my emacs)
+
+** clojure code
+
+You can run these clojure blocks with C-c C-c in org-mode
+
+#+begin_src clojure :results output :exports both :dir "./img" :tangle ./src/main/clojure/com/mycompany/app/core.clj
+  (-main)
+  (run)
+#+end_src
+
+#+RESULTS:
+: Hello Clojure!
+: Java main called clojure function with args:
+
+Note that we ran both our main and run functions here.  -main prints
+out the text shown above.  The run function actually opens the
+incanter java image viewer and shows us a picture of our graph.
+
+#+RESULTS:
+file:img/run.png
+
+I have purposefully not invested in styling these graphs in order to
+keep the code examples simple and focussed, however incanter make
+really beautiful output.  Here's a link to get you started:
+
+http://incanter.org/
+
+** playing with encanter
+
+
+#+begin_src clojure :results output :exports both :dir "./img"
+  (use '(incanter core charts pdf))
+  ;;; Create the x and y data:
+  (def x-data [0.0 1.0 2.0 3.0 4.0 5.0])
+  (def y-data [2.3 9.0 2.6 3.1 8.1 4.5])
+  (def xy-line (xy-plot x-data y-data))
+  (view xy-line)
+  (save-pdf xy-line "img/incanter-xy-line.pdf")
+  (save xy-line "img/incanter-xy-line.png")
+#+end_src
+
+#+RESULTS:
+** PNG
+file:img/incanter-xy-line.png
+** PDF
+file:img/incanter-xy-line.pdf
+
+
+* resources
+
+Finally here are some resources to move you along the journey. I have
+drew on the links cited below along with a night of hacking to arrive
+a nice clean interop skeleton.  Feel free to use my code available
+here:
+
+
+
+** org-babel clojure
+
+http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
+
+** org-scraps
+
+https://eschulte.github.io/org-scraps/
+
+** project setup
+
+http://data-sorcery.org/2009/11/20/leiningen-clojars/
+
+** working with Apache Storm (multilang)
+
+starter project:
+
+This incubator project from the Apache Foundation demos drinking from
+the twitter hose with twitter4j and fishing in the streams with Java,
+Clojure, Python, and Ruby.  Very cool and very powerful..
+
+https://github.com/apache/storm/tree/master/examples/storm-starter
+
+Testing Storm Topologies in Clojure:
+
+http://www.pixelmachine.org/2011/12/17/Testing-Storm-Topologies.html
+
+** vinyasa
+
+READ this to give your clojure workflow more flow
+
+https://github.com/zcaudate/vinyasa
+
+* wrapping up
+
+Clojure and Java are brothers of the JVM.  They are easily mixed
+together allowing you to call between the languages with simple
+interop apis.  For a more indepth example of writing consuming
+libraries written in Clojure inside your Java code, see Michael
+Richards' article detailing how to use Clojure to implement interfaces defined in
+Java.  He uses a FactoryMethod to abstract the mechanics of getting
+the implementation back into Java, which make's the clojure code
+virtually invisible from an API perspective.  Very nice.  Here's the
+link:
+
+http://michaelrkytch.github.io/programming/clojure/interop/2015/05/26/clj-interop-require.html
+
+Happy hacking!..
+
+# img/incanter-xy-line.png http://uberpwn.files.wordpress.com/2015/10/wpid-incanter-xy-line.png
+# img/incanter-xy-line.pdf http://uberpwn.files.wordpress.com/2015/10/wpid-incanter-xy-line.pdf
+
+# img/run.png http://uberpwn.files.wordpress.com/2015/10/wpid-run.png

@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-23 Fri 21:04 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title></title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. my-app</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Usage</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline36">2. starting a project</a>
+<ul>
+<li><a href="#orgheadline35">2.1. maven first</a>
+<ul>
+<li><a href="#orgheadline3">2.1.1. create mave project</a></li>
+<li><a href="#orgheadline4">2.1.2. add clojure code</a></li>
+<li><a href="#orgheadline5">2.1.3. add dependencies to your pom.xml</a></li>
+<li><a href="#orgheadline6">2.1.4. main changes</a></li>
+<li><a href="#orgheadline12">2.1.5. maven plugins for building</a></li>
+<li><a href="#orgheadline30">2.1.6. using maven</a></li>
+<li><a href="#orgheadline34">2.1.7. add leiningen support</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline41">3. running with org-babel</a>
+<ul>
+<li><a href="#orgheadline37">3.1. clojure code</a></li>
+<li><a href="#orgheadline38">3.2. playing with encanter</a></li>
+<li><a href="#orgheadline39">3.3. PNG</a></li>
+<li><a href="#orgheadline40">3.4. PDF</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline46">4. resources</a>
+<ul>
+<li><a href="#orgheadline42">4.1. org-babel clojure</a></li>
+<li><a href="#orgheadline43">4.2. org-scraps</a></li>
+<li><a href="#orgheadline44">4.3. project setup</a></li>
+<li><a href="#orgheadline45">4.4. vinyasa</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> my-app</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+A Clojure library designed to demonstrate how to setup Java interop
+using Maven.
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Usage</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+This is a complete Maven-first Clojure/Java interop application.  It
+details how to create a Maven application, enrich it with clojure
+code, call into clojure from Java, and  hook up the entry points for
+both Java and Clojure within the same project.
+</p>
+
+<p>
+Further, it contains my starter examples of using the fantastic Encanter
+library in clojure.  I include both a pom.xml and a project.clj
+showing how to pull in the dependencies.
+</p>
+
+<p>
+The outcome is a consistent maven-archetyped project, wherein maven
+and leiningen play nicely together.  This allows the best of both ways
+to be applied together.  For the emacs user, I include support for
+cider and swank.  NRepl by itself is present for general purpose use as well.
+</p>
+
+
+<pre class="example">
+foobar_12312312_13123123
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-2">
+<h2 id="orgheadline36"><span class="section-number-2">2</span> starting a project</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline35" class="outline-3">
+<h3 id="orgheadline35"><span class="section-number-3">2.1</span> maven first</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">2.1.1</span> create mave project</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+</p>
+
+<p>
+cd my-app
+</p>
+
+<p>
+mvn package
+</p>
+
+<p>
+java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">2.1.2</span> add clojure code</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+mkdir -p src/main/clojure/com/mycompany/app
+</p>
+
+<p>
+create file src/main/clojure/com/mycompany/app/core.clj
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #c397d8;">(</span><span style="color: #c397d8;">ns</span> <span style="color: #e7c547;">com.mycompany.app</span><span style="color: #c397d8;">)</span>
+
+<span style="color: #c397d8;">(</span><span style="color: #c397d8;">defn</span> <span style="color: #7aa6da;">main</span> <span style="color: #7aa6da;">[</span>args<span style="color: #7aa6da;">]</span>
+  <span style="color: #7aa6da;">(</span><span style="color: #70c0b1;">println</span> <span style="color: #b9ca4a;">"Hello Clojure!"</span><span style="color: #7aa6da;">)</span>
+  <span style="color: #7aa6da;">(</span><span style="color: #70c0b1;">println</span> <span style="color: #b9ca4a;">"Java main called clojure main with args: "</span>
+           <span style="color: #70c0b1;">(</span><span style="color: #70c0b1;">apply</span> <span style="color: #7aa6da;">str</span> <span style="color: #b9ca4a;">(</span><span style="color: #70c0b1;">interpose</span> <span style="color: #b9ca4a;">" "</span> args<span style="color: #b9ca4a;">)</span><span style="color: #70c0b1;">)</span><span style="color: #7aa6da;">)</span><span style="color: #c397d8;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">2.1.3</span> add dependencies to your pom.xml</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<div class="org-src-container">
+
+<pre class="src src-xml">&lt;<span style="color: #7aa6da;">dependency</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;org.clojure&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;clojure&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;1.7.0&lt;/<span style="color: #7aa6da;">version</span>&gt;
+&lt;/<span style="color: #7aa6da;">dependency</span>&gt;
+&lt;<span style="color: #7aa6da;">dependency</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;org.clojure&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;clojure-contrib&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;1.2.0&lt;/<span style="color: #7aa6da;">version</span>&gt;
+&lt;/<span style="color: #7aa6da;">dependency</span>&gt;
+&lt;<span style="color: #7aa6da;">dependency</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;incanter&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;incanter&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;1.9.0&lt;/<span style="color: #7aa6da;">version</span>&gt;
+&lt;/<span style="color: #7aa6da;">dependency</span>&gt;
+&lt;<span style="color: #7aa6da;">dependency</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;org.clojure&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;tools.nrepl&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;0.2.10&lt;/<span style="color: #7aa6da;">version</span>&gt;
+&lt;/<span style="color: #7aa6da;">dependency</span>&gt;
+&lt;<span style="color: #7aa6da;">dependency</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;swank-clojure&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;swank-clojure&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;1.4.3&lt;/<span style="color: #7aa6da;">version</span>&gt;
+&lt;/<span style="color: #7aa6da;">dependency</span>&gt;
+</pre>
+</div>
+
+<p>
+modify App.java to run this function like this.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">2.1.4</span> main changes</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #c397d8;">package</span> com.mycompany.<span style="color: #70c0b1;">app</span>;
+
+<span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">clojure api</span>
+<span style="color: #c397d8;">import</span> <span style="color: #70c0b1;">clojure</span>.<span style="color: #70c0b1;">lang</span>.<span style="color: #e7c547;">IFn</span>;
+<span style="color: #c397d8;">import</span> <span style="color: #70c0b1;">clojure</span>.<span style="color: #70c0b1;">java</span>.<span style="color: #70c0b1;">api</span>.<span style="color: #e7c547;">Clojure</span>;
+
+<span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">for my api</span>
+<span style="color: #c397d8;">import</span> <span style="color: #70c0b1;">clojure</span>.<span style="color: #70c0b1;">lang</span>.<span style="color: #e7c547;">RT</span>;
+
+<span style="color: #c397d8;">public</span> <span style="color: #c397d8;">class</span> <span style="color: #e7c547;">App</span>
+{
+  <span style="color: #c397d8;">public</span> <span style="color: #c397d8;">static</span> <span style="color: #e7c547;">void</span> <span style="color: #7aa6da;">main</span>( <span style="color: #e7c547;">String</span>[] <span style="color: #e78c45;">args</span> )
+  {
+
+    System.out.println(<span style="color: #b9ca4a;">"Hello Java!"</span> );
+
+    <span style="color: #c397d8;">try</span> {
+
+      <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">running my clojure code</span>
+      RT.loadResourceScript(<span style="color: #b9ca4a;">"com/mycompany/app/core.clj"</span>);
+      <span style="color: #e7c547;">IFn</span> <span style="color: #e78c45;">main</span> = RT.var(<span style="color: #b9ca4a;">"com.mycompany.app.core"</span>, <span style="color: #b9ca4a;">"main"</span>);
+      main.invoke(args);
+
+      <span style="color: #969896; font-style: italic;">// </span><span style="color: #969896; font-style: italic;">running the clojure api</span>
+      <span style="color: #e7c547;">IFn</span> <span style="color: #e78c45;">plus</span> = Clojure.var(<span style="color: #b9ca4a;">"clojure.core"</span>, <span style="color: #b9ca4a;">"+"</span>);
+      System.out.println(plus.invoke(1, 2).toString());
+
+    } <span style="color: #c397d8;">catch</span>(<span style="color: #e7c547;">Exception</span> <span style="color: #e78c45;">e</span>) {
+      e.printStackTrace();
+    }
+
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">2.1.5</span> maven plugins for building</h4>
+<div class="outline-text-4" id="text-2-1-5">
+<p>
+You should add in these plugins to get a complete jar:
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline7"></a>add the maven-assembly-plugin<br  /><div class="outline-text-5" id="text-2-1-5-1">
+<div class="org-src-container">
+
+<pre class="src src-xml">&lt;<span style="color: #7aa6da;">plugin</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;maven-assembly-plugin&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">configuration</span>&gt;
+    &lt;<span style="color: #7aa6da;">descriptorRefs</span>&gt;
+      &lt;<span style="color: #7aa6da;">descriptorRef</span>&gt;jar-with-dependencies&lt;/<span style="color: #7aa6da;">descriptorRef</span>&gt;
+    &lt;/<span style="color: #7aa6da;">descriptorRefs</span>&gt;
+    &lt;<span style="color: #7aa6da;">archive</span>&gt;
+      &lt;<span style="color: #7aa6da;">manifest</span>&gt;
+
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> use clojure main </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> &lt;mainClass&gt;com.mycompany.app.core&lt;/mainClass&gt; </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> use java main </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+        &lt;<span style="color: #7aa6da;">mainClass</span>&gt;com.mycompany.app.App&lt;/<span style="color: #7aa6da;">mainClass</span>&gt;
+
+      &lt;/<span style="color: #7aa6da;">manifest</span>&gt;
+    &lt;/<span style="color: #7aa6da;">archive</span>&gt;
+  &lt;/<span style="color: #7aa6da;">configuration</span>&gt;
+  &lt;<span style="color: #7aa6da;">executions</span>&gt;
+    &lt;<span style="color: #7aa6da;">execution</span>&gt;
+      &lt;<span style="color: #7aa6da;">id</span>&gt;make-assembly&lt;/<span style="color: #7aa6da;">id</span>&gt;
+      &lt;<span style="color: #7aa6da;">phase</span>&gt;package&lt;/<span style="color: #7aa6da;">phase</span>&gt;
+      &lt;<span style="color: #7aa6da;">goals</span>&gt;
+        &lt;<span style="color: #7aa6da;">goal</span>&gt;single&lt;/<span style="color: #7aa6da;">goal</span>&gt;
+      &lt;/<span style="color: #7aa6da;">goals</span>&gt;
+    &lt;/<span style="color: #7aa6da;">execution</span>&gt;
+  &lt;/<span style="color: #7aa6da;">executions</span>&gt;
+&lt;/<span style="color: #7aa6da;">plugin</span>&gt;
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline8"></a>add the clojure-maven-plugin<br  /><div class="outline-text-5" id="text-2-1-5-2">
+<div class="org-src-container">
+
+<pre class="src src-xml">&lt;<span style="color: #7aa6da;">plugin</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;com.theoryinpractise&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;clojure-maven-plugin&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;1.7.1&lt;/<span style="color: #7aa6da;">version</span>&gt;
+  &lt;<span style="color: #7aa6da;">configuration</span>&gt;
+    &lt;<span style="color: #7aa6da;">mainClass</span>&gt;com.mycompany.app.core&lt;/<span style="color: #7aa6da;">mainClass</span>&gt;
+  &lt;/<span style="color: #7aa6da;">configuration</span>&gt;
+  &lt;<span style="color: #7aa6da;">executions</span>&gt;
+    &lt;<span style="color: #7aa6da;">execution</span>&gt;
+      &lt;<span style="color: #7aa6da;">id</span>&gt;compile-clojure&lt;/<span style="color: #7aa6da;">id</span>&gt;
+      &lt;<span style="color: #7aa6da;">phase</span>&gt;compile&lt;/<span style="color: #7aa6da;">phase</span>&gt;
+      &lt;<span style="color: #7aa6da;">goals</span>&gt;
+        &lt;<span style="color: #7aa6da;">goal</span>&gt;compile&lt;/<span style="color: #7aa6da;">goal</span>&gt;
+      &lt;/<span style="color: #7aa6da;">goals</span>&gt;
+    &lt;/<span style="color: #7aa6da;">execution</span>&gt;
+    &lt;<span style="color: #7aa6da;">execution</span>&gt;
+      &lt;<span style="color: #7aa6da;">id</span>&gt;test-clojure&lt;/<span style="color: #7aa6da;">id</span>&gt;
+      &lt;<span style="color: #7aa6da;">phase</span>&gt;test&lt;/<span style="color: #7aa6da;">phase</span>&gt;
+      &lt;<span style="color: #7aa6da;">goals</span>&gt;
+        &lt;<span style="color: #7aa6da;">goal</span>&gt;test&lt;/<span style="color: #7aa6da;">goal</span>&gt;
+      &lt;/<span style="color: #7aa6da;">goals</span>&gt;
+    &lt;/<span style="color: #7aa6da;">execution</span>&gt;
+  &lt;/<span style="color: #7aa6da;">executions</span>&gt;
+&lt;/<span style="color: #7aa6da;">plugin</span>&gt;
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline9"></a>add the maven-compiler-plugin<br  /><div class="outline-text-5" id="text-2-1-5-3">
+<div class="org-src-container">
+
+<pre class="src src-xml">&lt;<span style="color: #7aa6da;">plugin</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;org.apache.maven.plugins&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;maven-compiler-plugin&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;3.3&lt;/<span style="color: #7aa6da;">version</span>&gt;
+  &lt;<span style="color: #7aa6da;">configuration</span>&gt;
+    &lt;<span style="color: #7aa6da;">source</span>&gt;1.8&lt;/<span style="color: #7aa6da;">source</span>&gt;
+    &lt;<span style="color: #7aa6da;">target</span>&gt;1.8&lt;/<span style="color: #7aa6da;">target</span>&gt;
+  &lt;/<span style="color: #7aa6da;">configuration</span>&gt;
+&lt;/<span style="color: #7aa6da;">plugin</span>&gt;
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline10"></a>add the maven-exec-plugin<br  /><div class="outline-text-5" id="text-2-1-5-4">
+<div class="org-src-container">
+
+<pre class="src src-xml">&lt;<span style="color: #7aa6da;">plugin</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;org.codehaus.mojo&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;exec-maven-plugin&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;1.4.0&lt;/<span style="color: #7aa6da;">version</span>&gt;
+  &lt;<span style="color: #7aa6da;">executions</span>&gt;
+    &lt;<span style="color: #7aa6da;">execution</span>&gt;
+      &lt;<span style="color: #7aa6da;">goals</span>&gt;
+        &lt;<span style="color: #7aa6da;">goal</span>&gt;exec&lt;/<span style="color: #7aa6da;">goal</span>&gt;
+      &lt;/<span style="color: #7aa6da;">goals</span>&gt;
+    &lt;/<span style="color: #7aa6da;">execution</span>&gt;
+  &lt;/<span style="color: #7aa6da;">executions</span>&gt;
+  &lt;<span style="color: #7aa6da;">configuration</span>&gt;
+    &lt;<span style="color: #7aa6da;">mainClass</span>&gt;com.mycompany.app.App&lt;/<span style="color: #7aa6da;">mainClass</span>&gt;
+  &lt;/<span style="color: #7aa6da;">configuration</span>&gt;
+&lt;/<span style="color: #7aa6da;">plugin</span>&gt;
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline11"></a>add the maven-jar-plugin<br  /><div class="outline-text-5" id="text-2-1-5-5">
+<div class="org-src-container">
+
+<pre class="src src-xml">&lt;<span style="color: #7aa6da;">plugin</span>&gt;
+  &lt;<span style="color: #7aa6da;">groupId</span>&gt;org.apache.maven.plugins&lt;/<span style="color: #7aa6da;">groupId</span>&gt;
+  &lt;<span style="color: #7aa6da;">artifactId</span>&gt;maven-jar-plugin&lt;/<span style="color: #7aa6da;">artifactId</span>&gt;
+  &lt;<span style="color: #7aa6da;">version</span>&gt;2.6&lt;/<span style="color: #7aa6da;">version</span>&gt;
+  &lt;<span style="color: #7aa6da;">configuration</span>&gt;
+    &lt;<span style="color: #7aa6da;">archive</span>&gt;
+      &lt;<span style="color: #7aa6da;">manifest</span>&gt;
+
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> use clojure main </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> &lt;mainClass&gt;com.mycompany.app.core&lt;/mainClass&gt; </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> use java main </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+        <span style="color: #969896; font-style: italic;">&lt;!--</span><span style="color: #969896; font-style: italic;"> &lt;mainClass&gt;com.mycompany.app.App&lt;/mainClass&gt; </span><span style="color: #969896; font-style: italic;">--&gt;</span>
+
+      &lt;/<span style="color: #7aa6da;">manifest</span>&gt;
+    &lt;/<span style="color: #7aa6da;">archive</span>&gt;
+  &lt;/<span style="color: #7aa6da;">configuration</span>&gt;
+&lt;/<span style="color: #7aa6da;">plugin</span>&gt;
+</pre>
+</div>
+</div></li></ol>
+</div>
+<div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30"><span class="section-number-4">2.1.6</span> using maven</h4>
+<div class="outline-text-4" id="text-2-1-6">
+</div><ol class="org-ol"><li><a id="orgheadline29"></a>bulding<br  /><div class="outline-text-5" id="text-2-1-6-1">
+<p>
+mvn package
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline16"></a>run from cli with<br  /><ol class="org-ol"><li><a id="orgheadline13"></a>run from java entry point:<br  /><div class="outline-text-7" id="text-2-1-6-1-1-1">
+<p>
+java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.app.App
+</p>
+</div></li>
+
+<li><a id="orgheadline14"></a>run from clojure entry point:<br  /><div class="outline-text-7" id="text-2-1-6-1-1-2">
+<p>
+java -cp target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar com.mycompany.app.core
+</p>
+</div></li>
+
+<li><a id="orgheadline15"></a>run with entry point specified in uberjar MANIFEST.MF:<br  /><div class="outline-text-7" id="text-2-1-6-1-1-3">
+<p>
+java -jar target/my-app-1.0-SNAPSHOT-jar-with-dependencies.jar
+</p>
+</div></li></ol></li>
+
+<li><a id="orgheadline22"></a>run from maven-exec-plugin<br  /><ol class="org-ol"><li><a id="orgheadline17"></a>with plugin specified entry point:<br  /><div class="outline-text-7" id="text-2-1-6-1-2-1">
+<p>
+mvn exec:java
+</p>
+</div></li>
+
+<li><a id="orgheadline20"></a>specify your own entry point:<br  /><ol class="org-ol"><li><a id="orgheadline18"></a>java main<br  /><div class="outline-text-8" id="text-2-1-6-1-2-2-1">
+<p>
+mvn exec:java -Dexec.mainClass="com.mycompany.app.App"
+</p>
+</div></li>
+
+<li><a id="orgheadline19"></a>clojure main<br  /><div class="outline-text-8" id="text-2-1-6-1-2-2-2">
+<p>
+mvn exec:java -Dexec.mainClass="com.mycompany.app.core"
+</p>
+</div></li></ol></li>
+
+<li><a id="orgheadline21"></a>feed args with this directive<br  /><div class="outline-text-7" id="text-2-1-6-1-2-3">
+<p>
+-Dexec.args="foo"
+</p>
+</div></li></ol></li>
+
+<li><a id="orgheadline28"></a>run with maven-clojure-plugin<br  /><ol class="org-ol"><li><a id="orgheadline23"></a>clojure main<br  /><div class="outline-text-7" id="text-2-1-6-1-3-1">
+<p>
+mvn clojure:run
+</p>
+</div></li>
+
+<li><a id="orgheadline25"></a>clojure test<br  /><ol class="org-ol"><li><a id="orgheadline24"></a>add a test<br  /><div class="outline-text-8" id="text-2-1-6-1-3-2-1">
+<p>
+in order to be consistent with the test location convention in maven,
+create a path like this:
+</p>
+
+<p>
+src/test/clojure/com/mycompany/app
+</p>
+
+<p>
+put a file in there called: <code>core_test.clj</code>
+</p>
+
+<p>
+add the following content:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #c397d8;">(</span><span style="color: #c397d8;">ns</span> <span style="color: #e7c547;">com.mycompany.app.core-test</span>
+  <span style="color: #7aa6da;">(</span><span style="color: #70c0b1;">:require</span> <span style="color: #70c0b1;">[</span><span style="color: #e7c547;">clojure.test</span> <span style="color: #70c0b1;">:refer</span> <span style="color: #70c0b1;">:all</span><span style="color: #70c0b1;">]</span>
+            <span style="color: #70c0b1;">[</span><span style="color: #e7c547;">com.mycompany.app.core</span> <span style="color: #70c0b1;">:refer</span> <span style="color: #70c0b1;">:all</span><span style="color: #70c0b1;">]</span><span style="color: #7aa6da;">)</span><span style="color: #c397d8;">)</span>
+
+<span style="color: #c397d8;">(</span><span style="color: #70c0b1;">deftest</span> <span style="color: #7aa6da;">a-test</span>
+  <span style="color: #7aa6da;">(</span><span style="color: #70c0b1;">testing</span> <span style="color: #b9ca4a;">"Rigourous Test </span><span style="color: #b9ca4a;">:-</span><span style="color: #b9ca4a;">)"</span>
+    <span style="color: #70c0b1;">(</span><span style="color: #70c0b1;">is</span> <span style="color: #b9ca4a;">(</span><span style="color: #7aa6da;">=</span> 0 0<span style="color: #b9ca4a;">)</span><span style="color: #70c0b1;">)</span><span style="color: #7aa6da;">)</span><span style="color: #c397d8;">)</span>
+</pre>
+</div>
+</div></li></ol></li>
+
+<li><a id="orgheadline26"></a>test<br  /><div class="outline-text-7" id="text-2-1-6-1-3-3">
+<p>
+mvn clojure:test
+</p>
+
+<p>
+or
+</p>
+
+<p>
+mvn clojure:test-with-junit
+</p>
+</div></li>
+
+<li><a id="orgheadline27"></a>available clojure commands<br  /><div class="outline-text-7" id="text-2-1-6-1-3-4">
+<p>
+clojure:add-source
+clojure:add-test-source
+clojure:compile
+clojure:test
+clojure:test-with-junit
+clojure:run
+clojure:repl
+clojure:nrepl
+clojure:swank
+clojure:nailgun
+clojure:gendoc
+clojure:autodoc
+clojure:marginalia
+</p>
+
+<p>
+see documentation:
+</p>
+
+<p>
+<a href="https://github.com/talios/clojure-maven-plugin">https://github.com/talios/clojure-maven-plugin</a>
+</p>
+</div></li></ol></li></ol></li></ol>
+</div>
+
+
+<div id="outline-container-orgheadline34" class="outline-4">
+<h4 id="orgheadline34"><span class="section-number-4">2.1.7</span> add leiningen support</h4>
+<div class="outline-text-4" id="text-2-1-7">
+</div><ol class="org-ol"><li><a id="orgheadline31"></a>create project.clj<br  /><div class="outline-text-5" id="text-2-1-7-1">
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #c397d8;">(</span><span style="color: #c397d8;">defproject</span> <span style="color: #7aa6da;">my-sandbox</span> <span style="color: #b9ca4a;">"1.0-SNAPSHOT"</span>
+ <span style="color: #70c0b1;">:description</span> <span style="color: #b9ca4a;">"My Encanter Project"</span>
+ <span style="color: #70c0b1;">:url</span> <span style="color: #b9ca4a;">"http://joelholder.com"</span>
+ <span style="color: #70c0b1;">:license</span> <span style="color: #7aa6da;">{</span><span style="color: #70c0b1;">:name</span> <span style="color: #b9ca4a;">"Eclipse Public License"</span>
+           <span style="color: #70c0b1;">:url</span> <span style="color: #b9ca4a;">"http://www.eclipse.org/legal/epl-v10.html"</span><span style="color: #7aa6da;">}</span>
+ <span style="color: #70c0b1;">:dependencies</span> <span style="color: #7aa6da;">[</span><span style="color: #70c0b1;">[</span><span style="color: #e7c547;">org.clojure</span>/clojure <span style="color: #b9ca4a;">"1.7.0"</span><span style="color: #70c0b1;">]</span>
+                <span style="color: #70c0b1;">[</span>incanter <span style="color: #b9ca4a;">"1.9.0"</span><span style="color: #70c0b1;">]</span><span style="color: #7aa6da;">]</span>
+ <span style="color: #70c0b1;">:main</span> <span style="color: #e7c547;">com.mycompany.app.core</span>
+ <span style="color: #70c0b1;">:source-paths</span> <span style="color: #7aa6da;">[</span><span style="color: #b9ca4a;">"src/main/clojure"</span><span style="color: #7aa6da;">]</span>
+ <span style="color: #70c0b1;">:java-source-paths</span> <span style="color: #7aa6da;">[</span><span style="color: #b9ca4a;">"src/main/java"</span><span style="color: #7aa6da;">]</span>
+ <span style="color: #70c0b1;">:test-paths</span> <span style="color: #7aa6da;">[</span><span style="color: #b9ca4a;">"src/test/clojure"</span><span style="color: #7aa6da;">]</span>
+ <span style="color: #70c0b1;">:resource-paths</span> <span style="color: #7aa6da;">[</span><span style="color: #b9ca4a;">"resources"</span><span style="color: #7aa6da;">]</span>
+ <span style="color: #70c0b1;">:aot</span> <span style="color: #70c0b1;">:all</span><span style="color: #c397d8;">)</span>
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline32"></a>run with leiningen<br  /><div class="outline-text-5" id="text-2-1-7-2">
+<p>
+lein run
+</p>
+</div></li>
+
+<li><a id="orgheadline33"></a>test with leiningen<br  /><div class="outline-text-5" id="text-2-1-7-3">
+<p>
+lein test
+</p>
+</div></li></ol>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline41" class="outline-2">
+<h2 id="orgheadline41"><span class="section-number-2">3</span> running with org-babel</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline37" class="outline-3">
+<h3 id="orgheadline37"><span class="section-number-3">3.1</span> clojure code</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #c397d8;">(</span>-main<span style="color: #c397d8;">)</span>
+<span style="color: #c397d8;">(</span>run<span style="color: #c397d8;">)</span>
+</pre>
+</div>
+
+<pre class="example">
+Hello Clojure!
+Java main called clojure function with args:  
+</pre>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgheadline38" class="outline-3">
+<h3 id="orgheadline38"><span class="section-number-3">3.2</span> playing with encanter</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #c397d8;">(</span><span style="color: #70c0b1;">use</span> '<span style="color: #7aa6da;">(</span>incanter core charts pdf<span style="color: #7aa6da;">)</span><span style="color: #c397d8;">)</span>
+<span style="color: #969896; font-style: italic;">;;; </span><span style="color: #969896; font-style: italic;">Create the x and y data:</span>
+<span style="color: #c397d8;">(</span><span style="color: #c397d8;">def</span> <span style="color: #e78c45;">x-data</span> <span style="color: #7aa6da;">[</span>0.0 1.0 2.0 3.0 4.0 5.0<span style="color: #7aa6da;">]</span><span style="color: #c397d8;">)</span>
+<span style="color: #c397d8;">(</span><span style="color: #c397d8;">def</span> <span style="color: #e78c45;">y-data</span> <span style="color: #7aa6da;">[</span>2.3 9.0 2.6 3.1 8.1 4.5<span style="color: #7aa6da;">]</span><span style="color: #c397d8;">)</span>
+<span style="color: #c397d8;">(</span><span style="color: #c397d8;">def</span> <span style="color: #e78c45;">xy-line</span> <span style="color: #7aa6da;">(</span><span style="color: #c397d8;">xy-plot</span> x-data y-data<span style="color: #7aa6da;">)</span><span style="color: #c397d8;">)</span>
+<span style="color: #c397d8;">(</span>view xy-line<span style="color: #c397d8;">)</span>
+<span style="color: #c397d8;">(</span>save-pdf xy-line <span style="color: #b9ca4a;">"img/incanter-xy-line.pdf"</span><span style="color: #c397d8;">)</span>
+<span style="color: #c397d8;">(</span>save xy-line <span style="color: #b9ca4a;">"img/incanter-xy-line.png"</span><span style="color: #c397d8;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">3.3</span> PNG</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<div class="figure">
+<p><img src="img/incanter-xy-line.png" alt="incanter-xy-line.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline40" class="outline-3">
+<h3 id="orgheadline40"><span class="section-number-3">3.4</span> PDF</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+<a href="img/incanter-xy-line.pdf">img/incanter-xy-line.pdf</a>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline46" class="outline-2">
+<h2 id="orgheadline46"><span class="section-number-2">4</span> resources</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">4.1</span> org-babel clojure</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<a href="http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html">http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43"><span class="section-number-3">4.2</span> org-scraps</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+<a href="https://eschulte.github.io/org-scraps/">https://eschulte.github.io/org-scraps/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44"><span class="section-number-3">4.3</span> project setup</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+<a href="http://data-sorcery.org/2009/11/20/leiningen-clojars/">http://data-sorcery.org/2009/11/20/leiningen-clojars/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45"><span class="section-number-3">4.4</span> vinyasa</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+READ this to give your clojure workflow more flow
+</p>
+
+<p>
+<a href="https://github.com/zcaudate/vinyasa">https://github.com/zcaudate/vinyasa</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: <span class="timestamp-wrapper"><span class="timestamp">[2015-10-23 Fri 20:52]</span></span></p>
+<p class="date">Created: 2015-10-23 Fri 21:04</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
