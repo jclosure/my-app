@@ -284,6 +284,7 @@ commandline, build scripts, or from inside an IDE.
     </executions>
     <configuration>
       <mainClass>com.mycompany.app.App</mainClass>
+      <additionalClasspathElements>src/main/clojure/</additionalClasspathElements>
     </configuration>
   </plugin>
 
