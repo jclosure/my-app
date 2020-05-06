@@ -161,6 +161,7 @@
          </executions>
          <configuration>
            <mainClass>com.mycompany.app.App</mainClass>
+           <additionalClasspathElements>src/main/clojure/</additionalClasspathElements>           
          </configuration>
        </plugin>
 
